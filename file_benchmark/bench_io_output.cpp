@@ -34,7 +34,7 @@ void fopen_test(char *buf){
 
 void open_test(char *buf){
     int f;
-    f = open("open.txt",O_WRONLY,664);
+    f = open("open.txt",O_WRONLY|O_CREAT,664);
     int start = clock();
     for(int i=0 ; i <100000 ; i++)
         write(f,buf,MAX_BUF);
