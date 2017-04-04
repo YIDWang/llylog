@@ -1,0 +1,10 @@
+{
+   "level": 1
+   "sync": false
+    "div" : 1
+    "divway":{
+        "second": 10000
+    }
+    "name":"log" 
+   "path": "/etc/"
+}
