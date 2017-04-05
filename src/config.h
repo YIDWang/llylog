@@ -5,7 +5,7 @@
 #include <iostream>
 #include <json/json.h>
 #include "common.h"
-
+#include <fstream>
 class Config{
 public:
     Config(char *path);

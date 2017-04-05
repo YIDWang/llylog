@@ -5,8 +5,26 @@ Config::Config(char *path):path(path){
 }
 
 int Config::Analytic(stConfig *config){
-    std::cout<<config<<std::endl;
-}
-int main(){
-    return 1;
+    Json::Reader reader;  
+    Json::Value root; 
+    std::ifstream in(path, std::ios::binary);
+    if( !in.is_open()  )   {   
+        std::cout << "Error opening file \n";   
+        return -1;   
+    }
+    if(reader.parse(in,root)){
+        config->level = LEVEL(root["level"].asInt());
+        config->sync = root["sync"].asBool();
+        config->divWay = root["divSize"].asBool();
+        if (config->divWay) {
+            config->divMessage.time.time = root["divWay"]["size"].asInt();
+        }else{
+            config->divMessage.size.size = root["divWay"]["time"].asInt();
+        }
+        config->name = root["name"].asString(); 
+        config->path = root["path"].asString(); 
+        return 0;
+    }
+    std::cout<<"Error reading file \n";   
+    return -1;
 }

@@ -36,9 +36,11 @@
     String（string msg）
     Long（long msg）
     Addr（long msg）
+
 ###信息输出器
 
     主要由C++操作流，文件管理器，文件监控器组成。
+
 ###日志缓存队列
 
     主要由无锁队列和环形缓存区组成。
