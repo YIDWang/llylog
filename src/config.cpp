@@ -3,6 +3,10 @@
     
 Config::Config(char *path):path(path){
 }
+Config::~Config(){
+}
+Config& Config::operator=(const Config& conf){
+}
 
 int Config::Analytic(stConfig *config){
     Json::Reader reader;  
@@ -28,3 +32,14 @@ int Config::Analytic(stConfig *config){
     std::cout<<"Error reading file \n";   
     return -1;
 }
+Config* Config::Instance(char *path)
+{
+    if (instance == NULL){
+        MyLock lock(Config::m_lock);
+        if (instance == NULL)
+            instance = new Config(path); 
+    }
+    return instance;
+}
+Config* Config::instance = NULL;
+pthread_mutex_t*  Config::m_lock = new pthread_mutex_t ;
