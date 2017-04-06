@@ -1,6 +1,10 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
+#include <stdio.h>
+#include <iostream>
+#include <cstdlib>                                                                                                                                                                      
+
 #define MAX_BUF 1024
 enum LEVEL{
     EUNM_LEVEL_NULL = 0,

@@ -1,12 +1,11 @@
 
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
-#include <stdio.h>
-#include <iostream>
 #include <json/json.h>
 #include "common.h"
 #include "lock.h"
 #include <fstream>
+
 class Config{
 public:
     int Analytic(stConfig *config);
