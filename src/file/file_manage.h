@@ -2,7 +2,7 @@
 #define _FILE_MANAGE_H_
 #include <map>
 #include "file.h"
-#include "common.h"
+#include "../common.h"
 
 class FileManageImp{
     public:

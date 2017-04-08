@@ -2,8 +2,8 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 #include <json/json.h>
-#include "common.h"
-#include "lock.h"
+#include "../common.h"
+#include "../lock.h"
 #include <fstream>
 
 class Config{

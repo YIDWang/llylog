@@ -2,10 +2,9 @@
 #define _LOG_H_
 
 
-#include "config.h"
-#include "file_manage.h"
-#include "fmt.h"
-
+#include "../config/config.h"
+#include "../file/file_manage.h"
+#include "../fmt.h"
 
 
 class Log{
