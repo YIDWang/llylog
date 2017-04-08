@@ -1,10 +1,9 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
-#include <time.h>
-#include <stdarg.h>
-#include "common.h"
+
 #include "config.h"
+#include "file_manage.h"
 #include "fmt.h"
 
 
@@ -24,16 +23,20 @@ public:
 class Logger:public Log{
 public:
     Logger();
-    int Init(char *path);
+    ~Logger();
+    int Init(const std::string path);
+    void Destory();
     virtual void debug(const char* fileName,const char* functionName,unsigned int line,const char* fmt,...);
     virtual void info(const char* fileName,const char* functionName,unsigned int line,const char* fmt,...);
     virtual void error(const char* fileName,const char* functionName,unsigned int line,const char* fmt,...);
     virtual void fatal(const char* fileName,const char* functionName,unsigned int line,const char* fmt,...);
 private:
-    std::string getNowTime();
+    // std::string getNowTime();
     std::string dealString(const char* fileName,const char* functionName,unsigned int line,const char* fmt);
+    void destory();
 private:
     // std::string m_pConfigPath;
     stConfig m_stConf;
+    FileManageImp *m_pFile;
 };
 #endif 

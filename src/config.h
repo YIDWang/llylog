@@ -9,10 +9,10 @@
 class Config{
 public:
     int Analytic(stConfig *config);
-    static Config* Instance(char *path);
+    static Config* Instance(const std::string path);
     ~Config();
 private:
-    Config(char *path);
+    Config(std::string path);
     Config& operator=(const Config&);
     Config(const Config&);
     class CGarbo  {  
@@ -32,7 +32,7 @@ private:
     static Config* instance;
     static pthread_mutex_t*  m_lock;
     static CGarbo Garbo;  //定义一个静态成员变量，程序结束时，系统会自动调用它的析构
-    char *path;
+    std::string path;
 };
 
 #endif
