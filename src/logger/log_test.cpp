@@ -4,7 +4,7 @@ int main(){
     Logger log;
     log.Init("conf.json");
     log.Debug("%d %s",1,"hello");
-    log.Debug("%d %s",2,"hello");
+/*    log.Debug("%d %s",2,"hello");
     log.Debug("%d %s",3,"hello");
     log.Debug("%d %s",4,"hello");
     log.Debug("%d %s",5,"hello");
@@ -28,5 +28,5 @@ int main(){
     log.Error("%d %s",7,"hello");
 
     log.Fatal("%d %s",1,"hello");
-    return 0;
+*/    return 0;
 }

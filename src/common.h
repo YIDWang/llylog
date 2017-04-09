@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>                                                                                                                                                                      
+#include <memory>
 #include "fmt.h"
 
 #define MAX_BUF 1024

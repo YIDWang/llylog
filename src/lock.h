@@ -4,7 +4,7 @@
 #include <pthread.h> 
 class MyLock{
     private:
-        pthread_mutex_t *mutex;
+        pthread_mutex_t* mutex;
     public:
         MyLock(pthread_mutex_t *mutex):mutex(mutex){
             pthread_mutex_init(mutex, NULL);  

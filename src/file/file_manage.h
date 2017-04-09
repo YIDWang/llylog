@@ -21,9 +21,9 @@ class FileManage:public FileManageImp{
         int reOpen(int type);
         int open(int type);
     private:
-        typedef std::map<int, FileOprImp*> MAP_FILE;
+        typedef std::map<int, std::shared_ptr<FileOprImp>> MAP_FILE;
         MAP_FILE  m_mapFilePool;
-        typedef std::map<int, stDiv*> MAP_DIV;
+        typedef std::map<int, std::shared_ptr<stDiv>> MAP_DIV;
         MAP_DIV  m_mapMes;
         std::string m_strPath;
         std::string m_strFileName;

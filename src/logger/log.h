@@ -36,6 +36,6 @@ private:
 private:
     // std::string m_pConfigPath;
     stConfig m_stConf;
-    FileManageImp *m_pFile;
+    std::shared_ptr<FileManageImp> m_pFile;
 };
 #endif 

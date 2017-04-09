@@ -9,12 +9,12 @@ Logger::~Logger(){
     destory();
 }
 int Logger::Init(const std::string path){
-    Config* conf = Config::Instance(path);
+    std::shared_ptr<Config> conf = Config::Instance(path);
     if (conf == NULL)
         return -1;
     if (0 != conf->Analytic(&m_stConf))
         return -1;
-    m_pFile = new FileManage(&m_stConf.divWay,m_stConf.path,m_stConf.name);
+    m_pFile = std::shared_ptr<FileManage>(new FileManage(&m_stConf.divWay,m_stConf.path,m_stConf.name));
     return 0; 
 }
 void Logger::Destory(){
@@ -98,8 +98,4 @@ std::string Logger::dealString(const char* fileName,const char* functionName,uns
 }
 
 void Logger::destory(){
-    if(m_pFile != NULL){
-        delete m_pFile;
-        m_pFile = NULL;
-    }
 }

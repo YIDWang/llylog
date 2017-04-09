@@ -32,14 +32,14 @@ int Config::Analytic(stConfig *config){
     std::cout<<"Error reading file \n";   
     return -1;
 }
-Config* Config::Instance(const std::string path)
+std::shared_ptr<Config> Config::Instance(const std::string path)
 {
-    if (instance == NULL){
+    if (!m_pInstance){
         MyLock lock(Config::m_lock);
-        if (instance == NULL)
-            instance = new Config(path); 
+        if (!m_pInstance)
+            m_pInstance= std::shared_ptr<Config>(new Config(path)); 
     }
-    return instance;
+    return m_pInstance;
 }
-Config* Config::instance = NULL;
 pthread_mutex_t*  Config::m_lock = new pthread_mutex_t ;
+std::shared_ptr<Config> Config::m_pInstance = NULL;

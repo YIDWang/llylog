@@ -9,7 +9,7 @@
 class Config{
 public:
     int Analytic(stConfig *config);
-    static Config* Instance(const std::string path);
+    static std::shared_ptr<Config> Instance(const std::string path);
     ~Config();
 private:
     Config(std::string path);
@@ -18,18 +18,17 @@ private:
     class CGarbo  {  
         public:
             ~CGarbo(){
-                if(Config::instance) {
-                    delete Config::instance;  
-                    Config::instance = NULL;
+                if(Config::m_pInstance) {
+                    Config::m_pInstance.reset();  
                 } 
                 if (Config::m_lock){
-                    delete Config::m_lock;
-                    Config::m_lock == NULL;
+                    delete m_lock;
+                    m_lock = NULL;
                 }
             }  
     };  
 private:
-    static Config* instance;
+    static std::shared_ptr<Config> m_pInstance;
     static pthread_mutex_t*  m_lock;
     static CGarbo Garbo;  //定义一个静态成员变量，程序结束时，系统会自动调用它的析构
     std::string path;
