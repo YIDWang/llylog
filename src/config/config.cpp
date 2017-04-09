@@ -1,14 +1,14 @@
 
 #include "config.h"
     
-Config::Config(std::string path):path(path){
+Config::Config(){
 }
 Config::~Config(){
 }
 Config& Config::operator=(const Config& conf){
 }
 
-int Config::Analytic(stConfig *config){
+int Config::Analytic(const std::string path,stConfig *config){
     Json::Reader reader;  
     Json::Value root; 
     std::ifstream in(path.c_str(), std::ios::binary);
@@ -32,12 +32,11 @@ int Config::Analytic(stConfig *config){
     std::cout<<"Error reading file \n";   
     return -1;
 }
-std::shared_ptr<Config> Config::Instance(const std::string path)
-{
+std::shared_ptr<Config> Config::Instance(){
     if (!m_pInstance){
         MyLock lock(Config::m_lock);
         if (!m_pInstance)
-            m_pInstance= std::shared_ptr<Config>(new Config(path)); 
+            m_pInstance= std::shared_ptr<Config>(new Config()); 
     }
     return m_pInstance;
 }

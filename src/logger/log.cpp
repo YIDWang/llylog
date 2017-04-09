@@ -9,10 +9,10 @@ Logger::~Logger(){
     destory();
 }
 int Logger::Init(const std::string path){
-    std::shared_ptr<Config> conf = Config::Instance(path);
+    std::shared_ptr<Config> conf = Config::Instance();
     if (conf == NULL)
         return -1;
-    if (0 != conf->Analytic(&m_stConf))
+    if (0 != conf->Analytic(path,&m_stConf))
         return -1;
     m_pFile = std::shared_ptr<FileManage>(new FileManage(&m_stConf.divWay,m_stConf.path,m_stConf.name));
     return 0; 

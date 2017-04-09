@@ -8,11 +8,11 @@
 
 class Config{
 public:
-    int Analytic(stConfig *config);
-    static std::shared_ptr<Config> Instance(const std::string path);
+    int Analytic(const std::string path,stConfig *config);
+    static std::shared_ptr<Config> Instance();
     ~Config();
 private:
-    Config(std::string path);
+    Config();
     Config& operator=(const Config&);
     Config(const Config&);
     class CGarbo  {  
@@ -31,7 +31,7 @@ private:
     static std::shared_ptr<Config> m_pInstance;
     static pthread_mutex_t*  m_lock;
     static CGarbo Garbo;  //定义一个静态成员变量，程序结束时，系统会自动调用它的析构
-    std::string path;
+    // std::string path;
 };
 
 #endif
