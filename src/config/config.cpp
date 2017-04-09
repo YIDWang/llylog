@@ -21,7 +21,7 @@ int Config::Analytic(const std::string path,stConfig *config){
         config->sync = root["sync"].asBool();
         config->divWay.type = int(root["divSize"].asBool());
         if (config->divWay.type) {
-            config->divWay.divMessage.time.interval = root["divWay"]["size"].asInt();
+            config->divWay.divMessage.time.interval = root["divWay"]["size"].asInt()*1024;
         }else{
             config->divWay.divMessage.size.size = root["divWay"]["time"].asInt();
         }

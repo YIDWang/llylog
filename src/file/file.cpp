@@ -7,9 +7,15 @@ FileOpr::~FileOpr(){
     destory();
 }
 int FileOpr::ReName(std::string newFileName){
-    if(rename(m_strFileName.c_str(),newFileName.c_str()) != 0){
+    if(m_pFileOpr != NULL){
+        fclose(m_pFileOpr);
+        m_pFileOpr = NULL;
+    }
+    std::string strTemp = m_strPath + newFileName;
+    if(rename(m_strFileName.c_str(),strTemp.c_str()) != 0){
         return -1;
     }
+    reopen();
     return 0;
 }
 //////////////////////////////////////////////////////////
@@ -27,28 +33,35 @@ void FileOpr::Close(){
 
 int FileOpr::Open(std::string strPath,std::string strFileName){
     destory();
-    std::string strTemp = createDir(strPath);
-    if (strTemp == ""){
+    m_strPath = createDir(strPath);
+    if (m_strPath == ""){
        return -1; 
     }
-    strTemp += strFileName;
+    m_strFileName = m_strPath + strFileName;
     // std::cout<<strTemp<<std::endl;
-    m_pFileOpr = fopen(strTemp.c_str(),"w");
-    if(m_pFileOpr == NULL){
-        return -1;
-    }
-    m_strFileName = strTemp;
-    return 0;
-}
-int FileOpr::Size(){
-    return m_iSize;
-}
-
-int FileOpr::Open(){
     m_pFileOpr = fopen(m_strFileName.c_str(),"w");
     if(m_pFileOpr == NULL){
         return -1;
     }
+    return 0;
+}
+int FileOpr::Size(){
+    unsigned long filesize = -1;      
+    struct stat statbuff;  
+    if(stat(m_strFileName.c_str(), &statbuff) < 0){  
+        return filesize;  
+    }else{  
+        filesize = statbuff.st_size;  
+    }  
+    return filesize;
+}
+
+int FileOpr::reopen(){
+    m_pFileOpr = fopen(m_strFileName.c_str(),"w");
+    if(m_pFileOpr == NULL){
+        return -1;
+    }
+    return 0;
 }
 /////////////////////////////////////////////////////////////////
 std::string FileOpr::createDir(std::string strDir){

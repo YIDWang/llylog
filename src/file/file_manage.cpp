@@ -3,6 +3,7 @@
 FileManage::FileManage(stDiv *div,std::string path,std::string name){
     m_strPath = path;
     m_strFileName = name;
+
    for (int i = 0 ; i < 4 ; i++){
         m_mapFilePool[i+1] = std::shared_ptr<FileOpr>(new FileOpr());
         m_mapMes[i+1] = std::shared_ptr<stDiv>(new stDiv());
@@ -26,19 +27,25 @@ int FileManage::Operater(int type,std::string msg){
 
 int FileManage::checkFile(int type){
     std::shared_ptr<FileOprImp> file = m_mapFilePool[type];
+    std::cout<<"check:"<<m_mapMes[type]->type<<std::endl;
     switch (m_mapMes[type]->type){
         case 1:{
                     int size = file->Size();
+                        std::cout<<"checkfile:"<<type<<" "<<m_mapMes[type]->divMessage.size.size<<" "<<size<<std::endl;
                     if(m_mapMes[type]->divMessage.size.size <= size){
                         return reOpen(type);
                     }
                     break;
                }
         case 0:{
+                   
+
                     time_t start = m_mapMes[type]->divMessage.time.divTime;
                     time_t end = time(NULL);
                     unsigned long interval = m_mapMes[type]->divMessage.time.interval;
                     if (difftime(end,start) >= interval){
+                        // std::cout<<"checkfile:"<<type<<" "<<m_mapMes[type]->divMessage.time.interval<<" "<<m_mapMes[type]->divMessage.time.divTime<<std::endl;
+                        m_mapMes[type]->divMessage.time.divTime = end;
                         return reOpen(type);
                     }
                     break;
@@ -49,6 +56,9 @@ int FileManage::checkFile(int type){
 
 int FileManage::wirte(int type,std::string msg){
     // std::cout<<type<<" "<<msg<<std::endl;
+    if(checkFile(type)){
+        return -1;
+    }
     return m_mapFilePool[type]->Write(msg);
 }
 
@@ -58,7 +68,7 @@ int FileManage::open(int type){
     if(m_mapFilePool[type]->Open(m_strPath,strNewFileName) !=0){
         return -1;
     }
-    if(m_mapMes[type]->type){
+    if(!m_mapMes[type]->type){
         m_mapMes[type]->divMessage.time.divTime = time(NULL);
     }
     return 0;
@@ -67,13 +77,9 @@ int FileManage::open(int type){
 
 int FileManage::reOpen(int type){
     std::string time =  NowTime();
-    std::string strNewFileName = m_strFileName + time + Level(type);
+    std::string strNewFileName = m_strFileName +"-"+ time + "-"+Level(type);
     std::shared_ptr<FileOprImp> file = m_mapFilePool[type];
-    file->Close();
     if(file->ReName(strNewFileName)!= 0){
-        return -1;
-    }
-    if(file->Open()!=0){
         return -1;
     }
     return 0;

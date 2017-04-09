@@ -1,0 +1,10 @@
+{
+   "level": 2,
+   "sync": true,
+   "divSize": false,
+   "divWay":{
+        "time": 1
+    },
+   "name": "lly",
+   "path": "./test_file/name"
+}

@@ -17,7 +17,7 @@ class FileOprImp{
         virtual int Open(std::string strPath,std::string strFileName)=0;
         virtual int Size()=0;
         virtual int ReName(std::string newFileName)=0;
-        virtual int Open()=0;
+        // virtual int Sync()=0;
 };
 
 class  FileOpr:public FileOprImp{
@@ -30,12 +30,13 @@ class  FileOpr:public FileOprImp{
         int Open(std::string strPath,std::string strFileName);
         int Size();
         int ReName(std::string newFileName);
-        int Open();
+
     private:
         std::string createDir(std::string strDir);
+        int reopen();
         void destory();
     private:
-        // std::string strPath; 
+        std::string m_strPath; 
         std::string m_strFileName;
         FILE* m_pFileOpr;
         int m_iSize;
