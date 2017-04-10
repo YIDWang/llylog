@@ -1,2 +1,1 @@
-
-g++ main.cpp thread.cpp -I ./ -lpthread 
+g++ thread_test.cpp thread.cpp -I ./ -lpthread 

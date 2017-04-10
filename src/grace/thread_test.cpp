@@ -1,6 +1,8 @@
 #include "thread.h"
 #include <iostream>
 
+using namespace std;
+
 class CMyTask: public CTask
 {
 public:
@@ -8,7 +10,6 @@ public:
 	
 	inline int Run()
 	{
-		printf("%s/n", (char*)this->m_ptrData);
 		sleep(10);
 		return 0;
 	}
@@ -18,8 +19,8 @@ int main()
 {
 	CMyTask taskObj;
 	
-	char szTmp[] = "this is the first thread running";
-	taskObj.SetData((void*)szTmp);
+	// char szTmp[] = "this is the first thread running";
+	// taskObj.SetData((void*)szTmp);
 	CThreadPool threadPool(10);
 	
 	for(int i = 0; i < 20; i++)

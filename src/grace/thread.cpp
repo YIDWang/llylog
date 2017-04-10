@@ -1,12 +1,12 @@
 
-#include "Thread.h"
-#include <iostream>
+#include "thread.h"
 
+/*
 void CTask::SetData(void * data)
 {
 	m_ptrData = data;
 }
-
+*/
 vector<CTask*> CThreadPool::m_vecTaskList;         //任务列表
 bool CThreadPool::shutdown = false;
 	
@@ -19,7 +19,7 @@ pthread_cond_t CThreadPool::m_pthreadCond = PTHREAD_COND_INITIALIZER;
 CThreadPool::CThreadPool(int threadNum)
 {
 	this->m_iThreadNum = threadNum;
-	cout << "I will create " << threadNum << " threads" << endl;
+	// cout << "I will create " << threadNum << " threads" << endl;
 	Create();
 }
 
@@ -44,7 +44,7 @@ void* CThreadPool::ThreadFunc(void* threadData)
 			pthread_exit(NULL);	
 		}
 		
-		printf("tid %lu run/n", tid);
+		// printf("tid %lu run/n", tid);
 		vector<CTask*>::iterator iter = m_vecTaskList.begin();
 		
 		/**
@@ -60,7 +60,7 @@ void* CThreadPool::ThreadFunc(void* threadData)
 		pthread_mutex_unlock(&m_pthreadMutex);
 		
  	 	task->Run(); /** 执行任务 */
-		printf("tid:%lu idle/n", tid);
+        // printf("tid:%lu idle/n", tid);
 	}
 	return (void*)0;
 }
@@ -100,7 +100,7 @@ int CThreadPool::StopAll()
 	{
 		return -1;	
 	}
-	printf("Now I will end all threads!!/n");
+	// printf("Now I will end all threads!!/n");
 	/** 唤醒所有等待线程，线程池要销毁了 */
 	shutdown = true;
     pthread_cond_broadcast(&m_pthreadCond);
